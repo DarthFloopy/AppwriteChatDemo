@@ -2,7 +2,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
+const StyledLabel = styled.label`
+    display: block;
+`
+
 const StyledInput = styled.input`
+    display: block;
     font-size: 1.5rem;
     margin: 2rem;
     padding: 0.5rem;
@@ -17,9 +22,12 @@ const StyledInput = styled.input`
     }
 `
 
-export default function TextInput({ name, isPassword }) {
-    return <StyledInput
-        type={isPassword?"password":"text"}
-        name={name} />
+export default function TextInput({ name, isPassword=false, label=null }) {
+    return <>
+        {label ? <StyledLabel htmlFor={name}>{label}</StyledLabel> : null}
+        <StyledInput
+            type={isPassword?"password":"text"}
+            name={name} />
+    </>
 }
 
