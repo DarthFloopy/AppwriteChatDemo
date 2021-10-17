@@ -4,13 +4,14 @@ import styled from 'styled-components'
 
 const StyledLabel = styled.label`
     display: block;
+    padding: 0.5rem;
 `
 
 const StyledInput = styled.input`
     display: block;
     font-size: 1.5rem;
-    margin: 2rem;
-    padding: 0.5rem;
+    margin: 1rem;
+    padding: 0.25rem;
     outline: none;
     border: none;
     border-bottom: solid 5px lightblue;
