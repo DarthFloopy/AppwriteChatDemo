@@ -1,5 +1,6 @@
 
 import React from 'react'
+import Button from './Button'
 import TextInput from './TextInput'
 
 import styled from 'styled-components'
@@ -13,6 +14,7 @@ export default function LoginBox() {
         <StyledH2>Log In</StyledH2>
         <TextInput label="Username" name="username" />
         <TextInput label="Password" name="password" isPassword={true}/>
+        <Button text="Submit" />
     </div>
 }
 
