@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const StyledLabel = styled.label`
@@ -23,12 +23,21 @@ const StyledInput = styled.input`
     }
 `
 
-export default function TextInput({ name, isPassword=false, label=null }) {
+export default function TextInput({ name, isPassword=false, label=null, onChange=null }) {
+    const [value, setValue] = useState('')
+
     return <>
         {label ? <StyledLabel htmlFor={name}>{label}</StyledLabel> : null}
         <StyledInput
             type={isPassword?"password":"text"}
-            name={name} />
+            name={name}
+            value={value}
+            onChange={event => {
+                setValue(event.target.value)
+                if (onChange) {
+                    onChange({ value: event.target.value })
+                }
+            }}/>
     </>
 }
 

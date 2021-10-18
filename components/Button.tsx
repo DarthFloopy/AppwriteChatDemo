@@ -21,6 +21,6 @@ const StyledButton = styled.button`
     }
 `
 
-export default function Button({ text }) {
-    return <StyledButton>{text}</StyledButton>
+export default function Button({ text, onClick=null }) {
+    return <StyledButton onClick={onClick}>{text}</StyledButton>
 }
