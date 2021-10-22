@@ -7,6 +7,10 @@ const StyledLabel = styled.label`
     padding: 0.5rem;
 `
 
+const ErrorLabel = styled(StyledLabel)`
+    color: red;
+`
+
 const StyledInput = styled.input`
     display: block;
     font-size: 1.5rem;
@@ -23,11 +27,14 @@ const StyledInput = styled.input`
     }
 `
 
-export default function TextInput({ name, isPassword=false, label=null, onChange=null }) {
+export default function TextInput(
+    { name, isPassword=false, label=null, errMsg=null, onChange=null }
+) {
     const [value, setValue] = useState('')
 
     return <>
-        {label ? <StyledLabel htmlFor={name}>{label}</StyledLabel> : null}
+        {label && <StyledLabel htmlFor={name}>{label}</StyledLabel>}
+        {errMsg && <ErrorLabel htmlFor={name}>{errMsg}</ErrorLabel>}
         <StyledInput
             type={isPassword?"password":"text"}
             name={name}
