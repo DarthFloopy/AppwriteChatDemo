@@ -22,7 +22,7 @@ export default function JoinRoomBox({ onSubmit }) {
             onChange={({value}) => {
             setRoomNameValue(value)
             }}></TextInput>
-        <Button text="Start Chatting" onClick={() => {
+        <Button onClick={() => {
             if (!nameValue) setNameErrMsg("Please enter your name.")
             else setNameErrMsg("")
             if (!roomNameValue) setRoomNameErrMsg("Please enter a room name.")
@@ -30,7 +30,7 @@ export default function JoinRoomBox({ onSubmit }) {
 
             if (nameValue && roomNameValue)
                 onSubmit(nameValue, roomNameValue)
-        }} />
+        }}>Start Chatting</Button>
     </>
 }
 

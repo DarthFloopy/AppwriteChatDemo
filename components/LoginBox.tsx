@@ -16,9 +16,9 @@ export default function LoginBox({ onSubmit }) {
         <TextInput label="Password" name="password" isPassword={true} onChange={({value}) => {
             setPasswordValue(value)
         }} />
-        <Button text="Submit" onClick={() => {
+        <Button onClick={() => {
             onSubmit(usernameValue, passwordValue)
-        }} />
+        }}>Submit</Button>
     </div>
 }
 
