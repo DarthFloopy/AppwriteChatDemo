@@ -6,10 +6,10 @@ import TextInput from './TextInput'
 
 export default function JoinRoomBox({ onSubmit }) {
     const [nameValue, setNameValue] = useState("")
-    const [roomIdValue, setRoomIdValue] = useState("")
+    const [roomNameValue, setRoomNameValue] = useState("")
 
     const [nameErrMsg, setNameErrMsg] = useState("")
-    const [roomIdErrMsg, setRoomIdErrMsg] = useState("")
+    const [roomNameErrMsg, setRoomNameErrMsg] = useState("")
 
     return <>
         <Heading as="h2">Join a Room</Heading>
@@ -18,18 +18,18 @@ export default function JoinRoomBox({ onSubmit }) {
                 setNameValue(value)
             }}
         ></TextInput>
-        <TextInput name="roomid" label="Room ID" errMsg={roomIdErrMsg}
+        <TextInput name="roomname" label="Room Name" errMsg={roomNameErrMsg}
             onChange={({value}) => {
-            setRoomIdValue(value)
+            setRoomNameValue(value)
             }}></TextInput>
         <Button text="Start Chatting" onClick={() => {
             if (!nameValue) setNameErrMsg("Please enter your name.")
             else setNameErrMsg("")
-            if (!roomIdValue) setRoomIdErrMsg("Please enter a room ID.")
-            else setRoomIdErrMsg("")
+            if (!roomNameValue) setRoomNameErrMsg("Please enter a room name.")
+            else setRoomNameErrMsg("")
 
-            if (nameValue && roomIdValue)
-                onSubmit(nameValue, roomIdValue)
+            if (nameValue && roomNameValue)
+                onSubmit(nameValue, roomNameValue)
         }} />
     </>
 }
