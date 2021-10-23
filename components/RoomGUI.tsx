@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import Button from "./Button"
-import { getMessagesByRoomName } from "../dbapis"
+import { getRoomsDirectory, getMessagesByRoomID, sendMessage } from "../dbapis"
 
 
 const Container = styled.div`
@@ -33,18 +33,19 @@ const MessageSendButton = styled(Button)`
     margin-left: 0.5rem;
 `
 
-function sendMessage(message) {
-    console.log(message) // WIP
-}
 
 export default function RoomGUI({ roomName }) {
 
-    const [messagesText, setMessagesText] = useState("")
+    const roomIDRef = useRef(null)
+    const [messagesText, setMessagesText] = useState("Loading...")
 
     useEffect(() => {
-        getMessagesByRoomName(roomName).then(messages => {
-            console.log(messages)
-            setMessagesText(messages.join("\n"))
+        getRoomsDirectory().then(dir => {
+            roomIDRef.current = dir[roomName]
+            getMessagesByRoomID(roomIDRef.current).then(messages => {
+                console.log(messages)
+                setMessagesText(messages.join("\n"))
+            })
         })
     }, [])
 
@@ -71,8 +72,8 @@ export default function RoomGUI({ roomName }) {
                 ref={buttonRef}
                 onClick={e => {
                     const message = messageBoxRef.current.value.trim()
-                    if (message) {
-                        sendMessage(message)
+                    if (message && roomIDRef.current) {
+                        sendMessage(message, roomIDRef.current)
                         messageBoxRef.current.value = ""
                     }
                 }}
