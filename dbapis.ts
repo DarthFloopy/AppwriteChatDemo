@@ -54,3 +54,14 @@ export async function deleteRoom(roomName) {
     }
 }
 
+
+export async function getMessages(roomName) {
+    const dir = await getRoomsDirectory()
+    if (! dir.hasOwnProperty(roomName))
+        throw Error(`room does not exist: ${roomName}`)
+    const roomID = dir[roomName]
+
+    const room = await sdk.database.getDocument(chatDataCollectionID, roomID)
+    return room.messages
+}
+
