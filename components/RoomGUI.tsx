@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import Button from "./Button"
 import { getMessages } from "../dbapis"
@@ -33,6 +33,9 @@ const MessageSendButton = styled(Button)`
     margin-left: 0.5rem;
 `
 
+function sendMessage(message) {
+    console.log(message) // WIP
+}
 
 export default function RoomGUI({ roomName }) {
 
@@ -45,6 +48,9 @@ export default function RoomGUI({ roomName }) {
         })
     }, [])
 
+    const messageBoxRef = useRef(null)
+    const buttonRef = useRef(null)
+
     return <Container>
         <MessagesView> {
             messagesText.split("\n").map(
@@ -52,8 +58,25 @@ export default function RoomGUI({ roomName }) {
             )
         } </MessagesView>
         <MessageInputContainer>
-            <MessageInput name="messageinput" id="messageinput" />
-            <MessageSendButton>➤</MessageSendButton>
+            <MessageInput
+                name="messageinput"
+                id="messageinput"
+                ref={messageBoxRef}
+                onKeyDown={e => {
+                    if (!e.key) throw Error("key event has no .key prop")
+                    if (e.key == "Enter")
+                        buttonRef.current.click()
+                }} />
+            <MessageSendButton
+                ref={buttonRef}
+                onClick={e => {
+                    const message = messageBoxRef.current.value.trim()
+                    if (message) {
+                        sendMessage(message)
+                        messageBoxRef.current.value = ""
+                    }
+                }}
+                > ➤ </MessageSendButton>
         </MessageInputContainer>
     </Container>
 }
