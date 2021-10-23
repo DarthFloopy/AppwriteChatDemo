@@ -27,11 +27,11 @@ export async function createNewRoom(roomName) {
     const newDoc = await sdk.database.createDocument(chatDataCollectionID, {
         roomName: roomName,
         messages: []
-    })
+    }, ["*"], ["*"])
     await sdk.database.createDocument(roomsDirectoryCollectionID, {
         roomName: roomName,
         roomID: newDoc["$id"]
-    })
+    }, ["*"], ["*"])
 
     return newDoc
 }
