@@ -76,3 +76,11 @@ export async function sendMessage(message, roomID) {
     })
 }
 
+
+export function onMessageListUpdated(roomID, callback) {
+    sdk.subscribe(`documents.${roomID}`, response => {
+        callback(response.payload.messages)
+    })
+}
+
+
