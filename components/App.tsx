@@ -2,6 +2,7 @@
 import React from "react";
 import { getRoomsDirectory, createNewRoom, deleteRoom } from "../dbapis";
 import JoinRoomBox from "./JoinRoomBox";
+import RoomGUI from "./RoomGUI"
 
 export default function App() {
 
@@ -16,6 +17,7 @@ export default function App() {
                 }
             })
         }} />
+        <RoomGUI roomName="test3" />
     </>
     )
 
