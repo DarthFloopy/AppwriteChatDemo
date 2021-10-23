@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import Button from "./Button"
-import { getMessages } from "../dbapis"
+import { getMessagesByRoomName } from "../dbapis"
 
 
 const Container = styled.div`
@@ -42,7 +42,7 @@ export default function RoomGUI({ roomName }) {
     const [messagesText, setMessagesText] = useState("")
 
     useEffect(() => {
-        getMessages(roomName).then(messages => {
+        getMessagesByRoomName(roomName).then(messages => {
             console.log(messages)
             setMessagesText(messages.join("\n"))
         })
