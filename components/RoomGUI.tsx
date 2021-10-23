@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import Button from "./Button"
-import { getRoomsDirectory, getMessagesByRoomID, sendMessage } from "../dbapis"
+import { getRoomsDirectory, getMessagesByRoomID, sendMessage, onMessageListUpdated } from "../dbapis"
 
 
 const Container = styled.div`
@@ -39,23 +39,32 @@ export default function RoomGUI({ roomName }) {
     const roomIDRef = useRef(null)
     const [messagesText, setMessagesText] = useState("Loading...")
 
+    const messagesViewRef = useRef(null)
+    const messageBoxRef = useRef(null)
+    const buttonRef = useRef(null)
+
     useEffect(() => {
         getRoomsDirectory().then(dir => {
             roomIDRef.current = dir[roomName]
             getMessagesByRoomID(roomIDRef.current).then(messages => {
                 console.log(messages)
                 setMessagesText(messages.join("\n"))
+                messagesViewRef.current.scrollTop =
+                    messagesViewRef.current.scrollHeight
+            })
+
+            onMessageListUpdated(roomIDRef.current, newMessageList => {
+                setMessagesText(newMessageList.join("\n"))
+                messagesViewRef.current.scrollTop =
+                    messagesViewRef.current.scrollHeight
             })
         })
     }, [])
 
-    const messageBoxRef = useRef(null)
-    const buttonRef = useRef(null)
-
     return <Container>
-        <MessagesView> {
+        <MessagesView ref={messagesViewRef}> {
             messagesText.split("\n").map(
-                line => <p key={line}>{line}</p>
+                (line, index) => <p key={index}>{line}</p>
             )
         } </MessagesView>
         <MessageInputContainer>
