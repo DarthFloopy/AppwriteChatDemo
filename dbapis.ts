@@ -68,3 +68,11 @@ export async function getMessagesByRoomID(roomID) {
     return room.messages
 }
 
+
+export async function sendMessage(message, roomID) {
+    // TODO: rework this -- there will be problems when users run this simultaneously
+    sdk.database.updateDocument(chatDataCollectionID, roomID, {
+        messages: [ ...(await getMessagesByRoomID(roomID)), message ]
+    })
+}
+
