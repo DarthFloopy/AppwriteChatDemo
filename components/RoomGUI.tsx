@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import Button from "./Button"
-import { getRoomsDirectory, getMessagesByRoomID, sendMessage, onMessageListUpdated } from "../dbapis"
+import { sendMessage, onMessageListUpdated, getMessagesByRoomName } from "../dbapis"
 
 
 const Container = styled.div`
@@ -36,7 +36,6 @@ const MessageSendButton = styled(Button)`
 
 export default function RoomGUI({ roomName }) {
 
-    const roomIDRef = useRef(null)
     const [messagesText, setMessagesText] = useState("Loading...")
 
     const messagesViewRef = useRef(null)
@@ -44,20 +43,17 @@ export default function RoomGUI({ roomName }) {
     const buttonRef = useRef(null)
 
     useEffect(() => {
-        getRoomsDirectory().then(dir => {
-            roomIDRef.current = dir[roomName]
-            getMessagesByRoomID(roomIDRef.current).then(messages => {
-                console.log(messages)
-                setMessagesText(messages.join("\n"))
-                messagesViewRef.current.scrollTop =
-                    messagesViewRef.current.scrollHeight
-            })
+        getMessagesByRoomName(roomName).then(messages => {
+            console.log(messages)
+            setMessagesText(messages.join("\n"))
+            messagesViewRef.current.scrollTop =
+                messagesViewRef.current.scrollHeight
+        })
 
-            onMessageListUpdated(roomIDRef.current, newMessageList => {
-                setMessagesText(newMessageList.join("\n"))
-                messagesViewRef.current.scrollTop =
-                    messagesViewRef.current.scrollHeight
-            })
+        onMessageListUpdated(roomName, newMessageList => {
+            setMessagesText(newMessageList.join("\n"))
+            messagesViewRef.current.scrollTop =
+                messagesViewRef.current.scrollHeight
         })
     }, [])
 
@@ -81,8 +77,8 @@ export default function RoomGUI({ roomName }) {
                 ref={buttonRef}
                 onClick={e => {
                     const message = messageBoxRef.current.value.trim()
-                    if (message && roomIDRef.current) {
-                        sendMessage(message, roomIDRef.current)
+                    if (message) {
+                        sendMessage(roomName, message, "bob")
                         messageBoxRef.current.value = ""
                     }
                 }}

@@ -6,81 +6,43 @@ sdk
     .setEndpoint('http://localhost:8080/v1')
     .setProject('616c95936708c')
 
-const roomsDirectoryCollectionID = "61734789324d1"
-const chatDataCollectionID = "61733d70ceb7f"
+const chatMessagesCollectionID = "61786197045a7"
 
-export async function getRoomsDirectory() {
-    const response = await sdk.database.listDocuments(roomsDirectoryCollectionID)
-    const result = {}
-    for (const doc of response["documents"]) {
-        result[doc["roomName"]] = doc["roomID"]
-    }
-    return result
-}
-
-export async function createNewRoom(roomName) {
-    const dir = await getRoomsDirectory()
-    if (dir.hasOwnProperty(roomName)) {
-        throw Error(`room already exists with name: ${roomName}`)
-    }
-
-    const newDoc = await sdk.database.createDocument(chatDataCollectionID, {
-        roomName: roomName,
-        messages: []
-    }, ["*"], ["*"])
-    await sdk.database.createDocument(roomsDirectoryCollectionID, {
-        roomName: roomName,
-        roomID: newDoc["$id"]
-    }, ["*"], ["*"])
-
-    return newDoc
+export async function getAllRoomNames() {
+    const response = await sdk.database.listDocuments(chatMessagesCollectionID)
+    return new Set(...response.documents.map(doc => doc.roomName))
 }
 
 export async function deleteRoom(roomName) {
-    const roomsDirectoryCollection =
-        await sdk.database.listDocuments(roomsDirectoryCollectionID)
-
     const chatDataCollection =
-        await sdk.database.listDocuments(chatDataCollectionID)
+        await sdk.database.listDocuments(chatMessagesCollectionID)
 
-    // remove chat rooms
+    // remove messages in room
     for (const doc of chatDataCollection.documents.filter(doc => (doc.roomName == roomName))) {
-        sdk.database.deleteDocument(chatDataCollectionID, doc["$id"])
-    }
-
-    // remove entries from rooms directory
-    for (const doc of roomsDirectoryCollection.documents.filter(doc => (doc.roomName == roomName))) {
-        sdk.database.deleteDocument(roomsDirectoryCollectionID, doc["$id"])
+        sdk.database.deleteDocument(chatMessagesCollectionID, doc["$id"])
     }
 }
-
 
 export async function getMessagesByRoomName(roomName) {
-    const dir = await getRoomsDirectory()
-    if (! dir.hasOwnProperty(roomName))
-        throw Error(`room does not exist: ${roomName}`)
-    const roomID = dir[roomName]
-    return await getMessagesByRoomID(roomID)
-}
-
-export async function getMessagesByRoomID(roomID) {
-    const room = await sdk.database.getDocument(chatDataCollectionID, roomID)
-    return room.messages
+    const response = await sdk.database.listDocuments(chatMessagesCollectionID)
+    return response.documents.filter(doc => doc.roomName == roomName)
 }
 
 
-export async function sendMessage(message, roomID) {
-    // TODO: rework this -- there will be problems when users run this simultaneously
-    sdk.database.updateDocument(chatDataCollectionID, roomID, {
-        messages: [ ...(await getMessagesByRoomID(roomID)), message ]
-    })
+export async function sendMessage(roomName, message, sender) {
+    return sdk.database.createDocument(chatMessagesCollectionID, {
+        roomName: roomName,
+        messageData: message,
+        sender: sender,
+        timestamp: Date.now()
+    }, ["*"], ["*"])
 }
 
 
 export function onMessageListUpdated(roomID, callback) {
-    sdk.subscribe(`documents.${roomID}`, response => {
-        callback(response.payload.messages)
-    })
+//     sdk.subscribe(`documents.${roomID}`, response => {
+//         callback(response.payload.messages)
+//     })
 }
 
 
