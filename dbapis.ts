@@ -39,10 +39,11 @@ export async function sendMessage(roomName, message, sender) {
 }
 
 
-export function onMessageListUpdated(roomID, callback) {
-//     sdk.subscribe(`documents.${roomID}`, response => {
-//         callback(response.payload.messages)
-//     })
+export function onMessageListUpdated(roomName, callback) {
+    sdk.subscribe(`documents`, response => {
+        if (response.payload.roomName == roomName)
+            callback(response.payload)
+    })
 }
 
 

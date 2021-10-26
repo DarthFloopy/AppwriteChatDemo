@@ -36,8 +36,6 @@ const MessageSendButton = styled(Button)`
 
 export default function RoomGUI({ roomName }) {
 
-    const [messagesText, setMessagesText] = useState("Loading...")
-
     const messagesViewRef = useRef(null)
     const messageBoxRef = useRef(null)
     const buttonRef = useRef(null)
@@ -46,24 +44,22 @@ export default function RoomGUI({ roomName }) {
         getMessagesByRoomName(roomName).then(messageDocs => {
             const messages = messageDocs.map(doc => doc.messageData)
             console.log(messages)
-            setMessagesText(messages.join("\n"))
+            console.log(messagesViewRef)
+            messagesViewRef.current.innerHTML = messages.join("<br>")
             messagesViewRef.current.scrollTop =
                 messagesViewRef.current.scrollHeight
         })
 
-        onMessageListUpdated(roomName, newMessageList => {
-            setMessagesText(newMessageList.join("\n"))
+        onMessageListUpdated(roomName, newMessageDoc => {
+            console.log(newMessageDoc)
+            messagesViewRef.current.innerHTML += `<br>${newMessageDoc.messageData}`
             messagesViewRef.current.scrollTop =
                 messagesViewRef.current.scrollHeight
         })
     }, [])
 
     return <Container>
-        <MessagesView ref={messagesViewRef}> {
-            messagesText.split("\n").map(
-                (line, index) => <p key={index}>{line}</p>
-            )
-        } </MessagesView>
+        <MessagesView ref={messagesViewRef}>Loading...</MessagesView>
         <MessageInputContainer>
             <MessageInput
                 name="messageinput"
