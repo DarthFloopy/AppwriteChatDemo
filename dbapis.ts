@@ -10,7 +10,7 @@ const chatMessagesCollectionID = "61786197045a7"
 
 export async function getAllRoomNames() {
     const response = await sdk.database.listDocuments(chatMessagesCollectionID)
-    return new Set(...response.documents.map(doc => doc.roomName))
+    return [...new Set(response.documents.map(doc => doc.roomName))]
 }
 
 export async function deleteRoom(roomName) {
