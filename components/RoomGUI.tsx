@@ -43,7 +43,8 @@ export default function RoomGUI({ roomName }) {
     const buttonRef = useRef(null)
 
     useEffect(() => {
-        getMessagesByRoomName(roomName).then(messages => {
+        getMessagesByRoomName(roomName).then(messageDocs => {
+            const messages = messageDocs.map(doc => doc.messageData)
             console.log(messages)
             setMessagesText(messages.join("\n"))
             messagesViewRef.current.scrollTop =
