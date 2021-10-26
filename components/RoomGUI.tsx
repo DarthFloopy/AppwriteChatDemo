@@ -40,21 +40,35 @@ export default function RoomGUI({ roomName }) {
     const messageBoxRef = useRef(null)
     const buttonRef = useRef(null)
 
-    useEffect(() => {
+    const displayNewMessage = (messageDoc, scrollToBottom=true) => {
+            messagesViewRef.current.innerHTML +=
+                `\n<p title="timestamp: ${messageDoc.timestamp}">` +
+                    `<b>${messageDoc.sender}</b>: ` +
+                    `${messageDoc.messageData}` +
+                `</p>`
+
+            if (scrollToBottom)
+                messagesViewRef.current.scrollTop =
+                    messagesViewRef.current.scrollHeight
+    }
+
+    const displayAllMessages = () => {
         getMessagesByRoomName(roomName).then(messageDocs => {
-            const messages = messageDocs.map(doc => doc.messageData)
-            console.log(messages)
-            console.log(messagesViewRef)
-            messagesViewRef.current.innerHTML = messages.join("<br>")
+            console.log(messageDocs)
+            messagesViewRef.current.innerHTML = ""
+            for (const doc of messageDocs)
+                displayNewMessage(doc, false)
+
             messagesViewRef.current.scrollTop =
                 messagesViewRef.current.scrollHeight
         })
+    }
+
+    useEffect(() => {
+        displayAllMessages()
 
         onMessageListUpdated(roomName, newMessageDoc => {
-            console.log(newMessageDoc)
-            messagesViewRef.current.innerHTML += `<br>${newMessageDoc.messageData}`
-            messagesViewRef.current.scrollTop =
-                messagesViewRef.current.scrollHeight
+            displayNewMessage(newMessageDoc)
         })
     }, [])
 
