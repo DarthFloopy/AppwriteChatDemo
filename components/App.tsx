@@ -42,13 +42,15 @@ export default function App() {
         </div>
     }
     else {
-        return <RoomGUI
-            roomName={roomName}
-            userName={userName}
-            onExit={() => {
-                setUserJoinedRoom(false)
-            }}
-            />
+        return <div style={{"width":"100vw","height":"100vh"}}>
+            <RoomGUI
+                roomName={roomName}
+                userName={userName}
+                onExit={() => {
+                    setUserJoinedRoom(false)
+                }}
+                />
+        </div>
     }
 
 }

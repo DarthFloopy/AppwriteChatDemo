@@ -8,13 +8,18 @@ import { sendMessage, onMessageListUpdated, getMessagesByRoomName } from "../dba
 const Container = styled.div`
     margin: 0;
     padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
 `
 
 const MessagesView = styled.div`
     outline: solid 1px darkgray;
     padding: 0.5rem;
-    max-height: 80vh;
     overflow-y: scroll;
+    flex-grow: 1;
 `
 
 const MessageInputContainer = styled.div`
