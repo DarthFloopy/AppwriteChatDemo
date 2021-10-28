@@ -14,18 +14,22 @@ export default function App() {
 
     if (!userJoinedRoom) {
         return <div style={{"position":"relative"}}>
-            <JoinRoomBox onSubmit={ (name, roomName) => {
-                setUserName(name)
-                setRoomName(roomName)
+            <JoinRoomBox
+                initialNameValue={userName}
+                initialRoomNameValue={roomName}
+                onSubmit={ (name, roomName) => {
+                    setUserName(name)
+                    setRoomName(roomName)
 
-                getAllRoomNames().then(list => {
-                    if (list.includes(roomName)) {
-                        setUserJoinedRoom(true)
-                    } else {
-                        setDialogVisible(true)
-                    }
-                })
-            }} />
+                    getAllRoomNames().then(list => {
+                        if (list.includes(roomName)) {
+                            setUserJoinedRoom(true)
+                        } else {
+                            setDialogVisible(true)
+                        }
+                    })
+                }}
+                />
             {
                 dialogVisible &&
                     <Dialog

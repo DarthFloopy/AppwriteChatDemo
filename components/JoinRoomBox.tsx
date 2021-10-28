@@ -1,15 +1,20 @@
 
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Heading from './Heading'
 import Button from './Button'
 import TextInput from './TextInput'
 
-export default function JoinRoomBox({ onSubmit }) {
-    const [nameValue, setNameValue] = useState("")
-    const [roomNameValue, setRoomNameValue] = useState("")
+export default function JoinRoomBox(
+    { onSubmit, initialNameValue="", initialRoomNameValue="" }
+) {
+    const [nameValue, setNameValue] = useState(initialNameValue)
+    const [roomNameValue, setRoomNameValue] = useState(initialRoomNameValue)
 
     const [nameErrMsg, setNameErrMsg] = useState("")
     const [roomNameErrMsg, setRoomNameErrMsg] = useState("")
+
+    // const nameBox = useRef(null)
+    // const roomNameBox = useRef(null)
 
     return <>
         <Heading as="h2">Join a Room</Heading>

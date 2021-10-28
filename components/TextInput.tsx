@@ -44,7 +44,9 @@ export default function TextInput(
                 if (onChange) {
                     onChange({ value: event.target.value })
                 }
-            }}/>
+            }}
+            // ref={ref}
+            />
     </>
 }
 
