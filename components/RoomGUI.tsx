@@ -34,7 +34,27 @@ const MessageSendButton = styled(Button)`
 `
 
 
-export default function RoomGUI({ roomName, userName }) {
+const TopBarContainer = styled.div`
+    margin: 0;
+    margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`
+const TopBarHeading = styled.h2`
+    overflow-x: auto;
+    margin-left: 0.5rem;
+    text-align: left;
+`
+function TopBar({ roomName, onBackButtonClicked }) {
+    return <TopBarContainer>
+        <Button style={{"margin":0}} onClick={onBackButtonClicked}>Back</Button>
+        <TopBarHeading>{roomName}</TopBarHeading>
+    </TopBarContainer>
+}
+
+export default function RoomGUI({ roomName, userName, onExit }) {
 
     const messagesViewRef = useRef(null)
     const messageBoxRef = useRef(null)
@@ -73,6 +93,7 @@ export default function RoomGUI({ roomName, userName }) {
     }, [])
 
     return <Container>
+        <TopBar roomName={roomName} onBackButtonClicked={onExit} />
         <MessagesView ref={messagesViewRef}>Loading...</MessagesView>
         <MessageInputContainer>
             <MessageInput

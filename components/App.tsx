@@ -42,7 +42,13 @@ export default function App() {
         </div>
     }
     else {
-        return <RoomGUI roomName={roomName} userName={userName} />
+        return <RoomGUI
+            roomName={roomName}
+            userName={userName}
+            onExit={() => {
+                setUserJoinedRoom(false)
+            }}
+            />
     }
 
 }
