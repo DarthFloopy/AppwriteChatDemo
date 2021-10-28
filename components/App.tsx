@@ -1,14 +1,21 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { deleteRoom, getAllRoomNames } from "../dbapis";
 import JoinRoomBox from "./JoinRoomBox";
 import RoomGUI from "./RoomGUI"
 
 export default function App() {
 
-    return (
-    <>
-        <JoinRoomBox onSubmit={ (name, roomName) => {
+    const [roomName, setRoomName] = useState(null)
+    const [userName, setUserName] = useState(null)
+    const [userJoinedRoom, setUserJoinedRoom] = useState(false)
+
+    if (!userJoinedRoom) {
+        return <JoinRoomBox onSubmit={ (name, roomName) => {
+            setUserName(name)
+            setRoomName(roomName)
+            setUserJoinedRoom(true)
+
             getAllRoomNames().then(list => {
                 console.log(list)
                 if (!(list.includes(roomName))) {
@@ -16,9 +23,10 @@ export default function App() {
                 }
             })
         }} />
-        <RoomGUI roomName="test3" userName="bill" />
-    </>
-    )
+    }
+    else {
+        return <RoomGUI roomName={roomName} userName={userName} />
+    }
 
 }
 
