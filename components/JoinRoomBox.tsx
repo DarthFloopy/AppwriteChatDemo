@@ -3,6 +3,15 @@ import React, { useState } from 'react'
 import Heading from './Heading'
 import Button from './Button'
 import TextInput from './TextInput'
+import styled from 'styled-components'
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.5rem;
+`
 
 export default function JoinRoomBox({ onSubmit }) {
     const [nameValue, setNameValue] = useState("")
@@ -11,7 +20,7 @@ export default function JoinRoomBox({ onSubmit }) {
     const [nameErrMsg, setNameErrMsg] = useState("")
     const [roomNameErrMsg, setRoomNameErrMsg] = useState("")
 
-    return <>
+    return <Container>
         <Heading as="h2">Join a Room</Heading>
         <TextInput name="name" label="Name" errMsg={nameErrMsg}
             onChange={({value}) => {
@@ -31,6 +40,6 @@ export default function JoinRoomBox({ onSubmit }) {
             if (nameValue && roomNameValue)
                 onSubmit(nameValue, roomNameValue)
         }}>Start Chatting</Button>
-    </>
+    </Container>
 }
 
