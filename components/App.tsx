@@ -16,7 +16,7 @@ export default function App() {
                 }
             })
         }} />
-        <RoomGUI roomName="test3" />
+        <RoomGUI roomName="test3" userName="bill" />
     </>
     )
 

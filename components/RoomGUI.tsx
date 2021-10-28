@@ -34,7 +34,7 @@ const MessageSendButton = styled(Button)`
 `
 
 
-export default function RoomGUI({ roomName }) {
+export default function RoomGUI({ roomName, userName }) {
 
     const messagesViewRef = useRef(null)
     const messageBoxRef = useRef(null)
@@ -89,7 +89,7 @@ export default function RoomGUI({ roomName }) {
                 onClick={e => {
                     const message = messageBoxRef.current.value.trim()
                     if (message) {
-                        sendMessage(roomName, message, "bob")
+                        sendMessage(roomName, message, userName)
                         messageBoxRef.current.value = ""
                     }
                 }}
