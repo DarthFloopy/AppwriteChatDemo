@@ -14,18 +14,24 @@ export async function getAllRoomNames() {
 }
 
 export async function deleteRoom(roomName) {
-    const chatDataCollection =
-        await sdk.database.listDocuments(chatMessagesCollectionID)
+    const filteredChatDataCollection =
+        await sdk.database.listDocuments(
+            chatMessagesCollectionID,
+            [`roomName=${roomName}`]
+        )
 
     // remove messages in room
-    for (const doc of chatDataCollection.documents.filter(doc => (doc.roomName == roomName))) {
+    for (const doc of filteredChatDataCollection.documents) {
         sdk.database.deleteDocument(chatMessagesCollectionID, doc["$id"])
     }
 }
 
 export async function getMessagesByRoomName(roomName) {
-    const response = await sdk.database.listDocuments(chatMessagesCollectionID)
-    return response.documents.filter(doc => doc.roomName == roomName)
+    const response = await sdk.database.listDocuments(
+        chatMessagesCollectionID,
+        [`roomName=${roomName}`]
+    )
+    return response.documents
 }
 
 
