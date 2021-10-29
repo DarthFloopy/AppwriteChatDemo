@@ -79,7 +79,6 @@ export default function RoomGUI({ roomName, userName, onExit }) {
 
     const displayAllMessages = () => {
         getMessagesByRoomName(roomName).then(messageDocs => {
-            console.log(messageDocs)
             messagesViewRef.current.innerHTML = ""
             for (const doc of messageDocs)
                 displayNewMessage(doc, false)
