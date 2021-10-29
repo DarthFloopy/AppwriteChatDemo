@@ -4,6 +4,27 @@ import { deleteRoom, getAllRoomNames } from "../dbapis";
 import Dialog from "./Dialog";
 import JoinRoomBox from "./JoinRoomBox";
 import RoomGUI from "./RoomGUI"
+import badge_url from '../built-with-appwrite.svg'
+import styled from "styled-components";
+
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    text-align: center;
+`
+
+const TitleHeading = styled.h1`
+    font-family: Impact;
+    border: solid 5px lightblue;
+    border-radius: 1rem;
+    padding: 0.3rem 1.5rem;
+    margin: 1rem;
+`
+
 
 export default function App() {
 
@@ -13,7 +34,10 @@ export default function App() {
     const [dialogVisible, setDialogVisible] = useState(false)
 
     if (!userJoinedRoom) {
-        return <div style={{"position":"relative"}}>
+        return <Container>
+            <TitleHeading>chatwrite</TitleHeading>
+            <img src={badge_url} alt="Built with Appwrite"
+                style={{"height":"1.5rem"}} />
             <JoinRoomBox onSubmit={ (name, roomName) => {
                 setUserName(name)
                 setRoomName(roomName)
@@ -39,7 +63,7 @@ export default function App() {
                         }}
                         />
             }
-        </div>
+        </Container>
     }
     else {
         return <div style={{"width":"100vw","height":"100vh"}}>

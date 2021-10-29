@@ -11,6 +11,9 @@ const Container = styled.div`
     justify-content: flex-start;
     align-items: center;
     padding: 0.5rem;
+    border: solid 5px lightblue;
+    border-radius: 1rem;
+    margin: 1rem;
 `
 
 export default function JoinRoomBox({ onSubmit }) {
