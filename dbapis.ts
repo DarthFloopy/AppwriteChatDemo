@@ -43,7 +43,7 @@ export async function sendMessage(roomName, message, sender) {
         messageData: message,
         sender: sender,
         timestamp: Date.now()
-    }, ["*"], ["*"])
+    }, ["*"], ["*"])  // world-writable may not be optimal but it's convenient :P
 }
 
 
