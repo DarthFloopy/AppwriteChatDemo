@@ -1,12 +1,12 @@
 
 import { Appwrite } from "appwrite";
+import { projectID, chatMessagesCollectionID } from "./config"
 
 const sdk = new Appwrite()
 sdk
     .setEndpoint(`http://${window.location.hostname}:8080/v1`)
-    .setProject('616c95936708c')
+    .setProject(projectID)
 
-const chatMessagesCollectionID = "61786197045a7"
 
 export async function countMessagesInRoom(roomName) {
     const response = await sdk.database.listDocuments(
