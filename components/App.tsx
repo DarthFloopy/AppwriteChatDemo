@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { deleteRoom, getAllRoomNames } from "../dbapis";
+import { countMessagesInRoom } from "../dbapis";
 import Dialog from "./Dialog";
 import JoinRoomBox from "./JoinRoomBox";
 import RoomGUI from "./RoomGUI"
@@ -42,12 +42,11 @@ export default function App() {
                 setUserName(name)
                 setRoomName(roomName)
 
-                getAllRoomNames().then(list => {
-                    if (list.includes(roomName)) {
+                countMessagesInRoom(roomName).then(number => {
+                    if (number > 0)
                         setUserJoinedRoom(true)
-                    } else {
+                    else
                         setDialogVisible(true)
-                    }
                 })
             }} />
             {
