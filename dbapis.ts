@@ -3,7 +3,7 @@ import { Appwrite } from "appwrite";
 
 const sdk = new Appwrite()
 sdk
-    .setEndpoint('http://localhost:8080/v1')
+    .setEndpoint(`http://${window.location.hostname}:8080/v1`)
     .setProject('616c95936708c')
 
 const chatMessagesCollectionID = "61786197045a7"
