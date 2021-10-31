@@ -21,6 +21,7 @@ const StyledInput = styled.input`
     border-bottom: solid 5px lightblue;
     transition: border 0.2s;
     will-change: border;
+    max-width: 60vw;
 
     &:focus {
         border-bottom: solid 8px lightblue;
