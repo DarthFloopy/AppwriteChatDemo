@@ -6,6 +6,10 @@ This is a simple instant message chat app with persistent message storage. Users
 are able to send messages without having to make accounts. Just pick a name and
 join a room.
 
+## Screenshots
+![Menu screenshot](screenshot1.png)
+![Chat room screenshot](screenshot2.png)
+
 ## Running Chatwrite
 1. Install Appwrite (https://appwrite.io/docs/installation)
 2. Open the Appwrite console and make a new project.
