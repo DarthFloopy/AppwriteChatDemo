@@ -31,9 +31,13 @@ export async function deleteRoom(roomName) {
 export async function getMessagesByRoomName(roomName) {
     const response = await sdk.database.listDocuments(
         chatMessagesCollectionID,
-        [`roomName=${roomName}`]
+        [`roomName=${roomName}`],
+        100, // limit messages -- 100 is max allowed by server
+        0, // offset value
+        "timestamp", // order field
+        "DESC", // descending order
     )
-    return response.documents
+    return response.documents.reverse() // last 100 messages, in correct order
 }
 
 
