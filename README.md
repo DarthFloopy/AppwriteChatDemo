@@ -21,6 +21,18 @@ join a room.
 5. Clone this repo, `cd` into it, and run `npm i` to install dependencies
 6. Edit `config.js` to include the relevant project's API endpoint and ID and
    the messages collection's ID.
+7. Run `npm start` to build the web app and start the web server (on port 80 --
+   be sure to check your computer's firewall if it doesn't work).
+
+### Troubleshooting
+ - (As mentioned before) Your computer's firewall may block incoming connections
+   to some or all network ports. Check your firewall settings if necessary.
+ - To work around a CORS issue, make sure you are accessing the web app on the
+   same host name as the one entered as the `apiEndpoint` in `config.js`.
+   (Specifically, things are broken if Appwrite is running on `localhost` and
+   you try to access the web app on `127.0.0.1`.)
+ - If something is still broken, make an issue on this GitHub repo and I'll see
+   if I can fix it.
 
 ## How it works
  - A user picks a name, types in a room name, joins the room and starts sending
