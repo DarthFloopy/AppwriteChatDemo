@@ -7,6 +7,10 @@ sdk
     .setEndpoint(apiEndpoint)
     .setProject(projectID)
 
+sdk.account.get().catch(() => {
+    sdk.account.createAnonymousSession().catch(console.error)
+})
+
 
 export async function countMessagesInRoom(roomName) {
     const response = await sdk.database.listDocuments(
