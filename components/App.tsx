@@ -38,8 +38,10 @@ export default function App() {
     if (!userJoinedRoom) {
         return <Container>
             <TitleHeading>chatwrite</TitleHeading>
-            <img src={badge_url} alt="Built with Appwrite"
-                style={{"height":"1.5rem"}} />
+            <a href="https://appwrite.io" target="_blank">
+                <img src={badge_url} alt="Built with Appwrite"
+                    style={{"height":"1.5rem"}} />
+            </a>
             <JoinRoomBox onSubmit={ (name, roomName) => {
                 setUserName(name)
                 setRoomName(roomName)
