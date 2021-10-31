@@ -6,6 +6,7 @@ import JoinRoomBox from "./JoinRoomBox";
 import RoomGUI from "./RoomGUI"
 import badge_url from '../built-with-appwrite.svg'
 import styled from "styled-components";
+import { apiEndpoint } from "../config"
 
 
 const Container = styled.div`
@@ -31,7 +32,8 @@ export default function App() {
     const [roomName, setRoomName] = useState(null)
     const [userName, setUserName] = useState(null)
     const [userJoinedRoom, setUserJoinedRoom] = useState(false)
-    const [dialogVisible, setDialogVisible] = useState(false)
+    const [createRoomDialogVisible, setCreateRoomDialogVisible] = useState(false)
+    const [corsErrorDialogVisible, setCorsErrorDialogVisible] = useState(false)
 
     if (!userJoinedRoom) {
         return <Container>
@@ -46,19 +48,32 @@ export default function App() {
                     if (number > 0)
                         setUserJoinedRoom(true)
                     else
-                        setDialogVisible(true)
+                        setCreateRoomDialogVisible(true)
+                }).catch(err => {
+                    setCorsErrorDialogVisible(true)
                 })
             }} />
             {
-                dialogVisible &&
+                createRoomDialogVisible &&
                     <Dialog
                         text={`The room "${roomName}" does not exist. Create it?`}
                         buttonLabels={["Yes", "No"]}
                         onClick={response => {
-                            setDialogVisible(false)
+                            setCreateRoomDialogVisible(false)
                             if (response == "Yes") {
                                 setUserJoinedRoom(true)
                             }
+                        }}
+                        />
+            }
+            {
+                corsErrorDialogVisible &&
+                    <Dialog
+                        text={"CORS Error -- if this is hosted locally, you could try viewing " +
+                            `this page on ${apiEndpoint.split(":").slice(0,2).join(":")}:80`}
+                        buttonLabels={["OK"]}
+                        onClick={() => {
+                            setCorsErrorDialogVisible(false)
                         }}
                         />
             }
