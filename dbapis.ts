@@ -1,10 +1,10 @@
 
 import { Appwrite } from "appwrite";
-import { projectID, chatMessagesCollectionID } from "./config"
+import { apiEndpoint, projectID, chatMessagesCollectionID } from "./config"
 
 const sdk = new Appwrite()
 sdk
-    .setEndpoint(`http://${window.location.hostname}:8080/v1`)
+    .setEndpoint(apiEndpoint)
     .setProject(projectID)
 
 
