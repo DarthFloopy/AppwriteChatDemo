@@ -116,6 +116,7 @@ export default function RoomGUI({ roomName, userName, onExit }) {
                     if (message) {
                         sendMessage(roomName, message, userName)
                         messageBoxRef.current.value = ""
+                        messageBoxRef.current.focus()
                     }
                 }}
                 > ➤ </MessageSendButton>
