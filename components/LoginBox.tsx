@@ -1,4 +1,7 @@
 
+// NOTE: THIS FILE IS OLD CODE AND IS NOT CURRENTLY IN USE.
+// (You may have been looking for JoinRoomBox.tsx)
+
 import React, { useState } from 'react'
 import Heading from './Heading'
 import Button from './Button'
