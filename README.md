@@ -9,19 +9,21 @@ join a room.
 ## Running Chatwrite
 1. Install Appwrite (https://appwrite.io/docs/installation)
 2. Open the Appwrite console and make a new project.
-3. Click on "Database" and make a new collection called "chatMessages" (or
+3. Scroll to the bottom of the dashboard and add a new web app platform, typing
+   in your local IP address (not `localhost`).
+4. Click on "Database" and make a new collection called "chatMessages" (or
    something similar).
-4. Go to the collection's settings and add these rules (with data types):
+5. Go to the collection's settings and add these rules (with data types):
      - roomName (text)
      - sender (text)
      - messageData (text)
      - timestamp (numeric)
    For each rule, put "`*`" (wildcard) in both the read and write permissions
    list.
-5. Clone this repo, `cd` into it, and run `npm i` to install dependencies
-6. Edit `config.js` to include the relevant project's API endpoint and ID and
+6. Clone this repo, `cd` into it, and run `npm i` to install dependencies
+7. Edit `config.js` to include the relevant project's API endpoint and ID and
    the messages collection's ID.
-7. Run `npm start` to build the web app and start the web server (on port 80 --
+8. Run `npm start` to build the web app and start the web server (on port 80 --
    be sure to check your computer's firewall if it doesn't work).
 
 ### Troubleshooting
@@ -29,8 +31,6 @@ join a room.
    to some or all network ports. Check your firewall settings if necessary.
  - To work around a CORS issue, make sure you are accessing the web app on the
    same host name as the one entered as the `apiEndpoint` in `config.js`.
-   (Specifically, things are broken if Appwrite is running on `localhost` and
-   you try to access the web app on `127.0.0.1`.)
  - If something is still broken, make an issue on this GitHub repo and I'll see
    if I can fix it.
 
@@ -52,4 +52,6 @@ join a room.
 ## To do
  - When the user leaves a room, the username and room name they previously typed
    in should be kept in the input form.
+ - Trigger the CORS dialog as soon as CORS errors are detected, instead of only
+   when "Start Chatting" is clicked
 

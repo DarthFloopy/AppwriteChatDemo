@@ -71,7 +71,7 @@ export default function App() {
             {
                 corsErrorDialogVisible &&
                     <Dialog
-                        text={"CORS Error -- if this is hosted locally, you could try viewing " +
+                        text={"CORS error -- try viewing " +
                             `this page on ${apiEndpoint.split(":").slice(0,2).join(":")}:80`}
                         buttonLabels={["OK"]}
                         onClick={() => {
