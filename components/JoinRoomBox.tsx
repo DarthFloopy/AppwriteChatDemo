@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Heading from './Heading'
 import Button from './Button'
 import TextInput from './TextInput'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 const Container = styled.div`
     display: flex;
@@ -14,6 +14,17 @@ const Container = styled.div`
     border: solid 5px #f02e65;
     border-radius: 1rem;
     margin: 1rem;
+`
+
+const colorRotate = keyframes`
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+`
+
+const RainbowButton = styled(Button)`
+    animation: ${colorRotate} 15s infinite;
+    background-color: hsl(0deg 90% 80% / 100%);
+    border: solid 5px hsl(0deg 90% 80% / 100%);
 `
 
 export default function JoinRoomBox({ onSubmit }) {
@@ -34,7 +45,7 @@ export default function JoinRoomBox({ onSubmit }) {
             onChange={({value}) => {
             setRoomNameValue(value)
             }}></TextInput>
-        <Button onClick={() => {
+        <RainbowButton onClick={() => {
             if (!nameValue) setNameErrMsg("Please enter your name.")
             else setNameErrMsg("")
             if (!roomNameValue) setRoomNameErrMsg("Please enter a room name.")
@@ -42,7 +53,7 @@ export default function JoinRoomBox({ onSubmit }) {
 
             if (nameValue && roomNameValue)
                 onSubmit(nameValue, roomNameValue)
-        }}>Start Chatting</Button>
+        }}>Start Chatting</RainbowButton>
     </Container>
 }
 
