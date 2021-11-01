@@ -11,7 +11,7 @@ const DialogDiv = styled.div`
     padding: 1rem;
     background: white;
     border-radius: 8px;
-    border: solid 5px lightblue;
+    border: solid 5px #f02e65;
     max-width: 90vw;
     min-width: 50%;
     text-align: center;

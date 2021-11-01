@@ -6,8 +6,8 @@ const Button = styled.button`
     padding: 0.5rem;
     margin: 0.5rem;
     border: none;
-    background: lightblue;
-    border: solid 5px lightblue;
+    background: #f02e65;
+    border: solid 5px #f02e65;
     cursor: pointer;
     border-radius: 8px;
     font-weight: bold;
@@ -17,7 +17,7 @@ const Button = styled.button`
         background: transparent;
     }
     &:active {
-        background: lightblue;
+        background: #f02e65;
     }
 `
 

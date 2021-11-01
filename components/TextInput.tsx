@@ -18,13 +18,13 @@ const StyledInput = styled.input`
     padding: 0.25rem;
     outline: none;
     border: none;
-    border-bottom: solid 5px lightblue;
+    border-bottom: solid 5px #f02e65;
     transition: border 0.2s;
     will-change: border;
     max-width: 60vw;
 
     &:focus {
-        border-bottom: solid 8px lightblue;
+        border-bottom: solid 8px #f02e65;
     }
 `
 
