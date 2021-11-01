@@ -5,7 +5,7 @@ import Dialog from "./Dialog";
 import JoinRoomBox from "./JoinRoomBox";
 import RoomGUI from "./RoomGUI"
 import badge_url from '../built-with-appwrite.svg'
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { apiEndpoint } from "../config"
 
 
@@ -18,12 +18,31 @@ const Container = styled.div`
     text-align: center;
 `
 
+const wobble = keyframes`
+    0% {
+        transform: rotate(0deg) scale(1.0);
+    }
+    25% {
+        transform: rotate(-1.5deg) scale(1.02);
+    }
+    75% {
+        transform: rotate(1.5deg) scale(0.98);
+    }
+    100% {
+        transform: rotate(0deg) scale (1.0);
+    }
+`
+
 const TitleHeading = styled.h1`
     font-family: Impact;
     border: solid 5px #f02e65;
     border-radius: 1rem;
     padding: 0.3rem 1.5rem;
     margin: 1rem;
+
+    &:hover {
+        animation: ${wobble} 5s linear infinite;
+    }
 `
 
 
