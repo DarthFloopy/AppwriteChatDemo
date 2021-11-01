@@ -20,7 +20,7 @@ const Container = styled.div`
 
 const TitleHeading = styled.h1`
     font-family: Impact;
-    border: solid 5px lightblue;
+    border: solid 5px #f02e65;
     border-radius: 1rem;
     padding: 0.3rem 1.5rem;
     margin: 1rem;

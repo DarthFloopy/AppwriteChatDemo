@@ -11,7 +11,7 @@ const Container = styled.div`
     justify-content: flex-start;
     align-items: center;
     padding: 0.5rem;
-    border: solid 5px lightblue;
+    border: solid 5px #f02e65;
     border-radius: 1rem;
     margin: 1rem;
 `
