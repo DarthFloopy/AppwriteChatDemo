@@ -16,7 +16,8 @@ const Container = styled.div`
 `
 
 const MessagesView = styled.div`
-    outline: solid 1px darkgray;
+    border: solid 5px black;
+    border-radius: 8px;
     padding: 0.5rem;
     overflow-y: scroll;
     flex-grow: 1;
@@ -32,6 +33,8 @@ const MessageInput = styled.input`
     padding: 0.5rem;
     flex-grow: 1;
     font-size: 1rem;
+    border: solid 5px black;
+    border-radius: 8px;
 `
 const MessageSendButton = styled(Button)`
     margin: 0;
